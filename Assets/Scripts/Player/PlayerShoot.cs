@@ -37,13 +37,18 @@ public class PlayerShoot : MonoBehaviour
 
     private void FireBullet()
     {
-        // Calculate the bullet's direction based on the player's look direction
-        Vector3 bulletDirection = transform.up;
+        // Get the mouse position in world space
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        mousePosition.z = 0f;
+
+        // Calculate the direction from the player to the mouse cursor
+        Vector3 direction = mousePosition - transform.position;
+        direction.Normalize();
 
         // Instantiate the bullet and set its initial velocity
         GameObject bullet = Instantiate(_bulletPrefab, _gunOffset.position, Quaternion.identity);
         Rigidbody2D rigidbody = bullet.GetComponent<Rigidbody2D>();
-        rigidbody.velocity = bulletDirection * _bulletSpeed;
+        rigidbody.velocity = direction * _bulletSpeed;
     }
 
     private void OnFire(InputValue inputValue)
