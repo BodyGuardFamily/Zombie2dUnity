@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,7 +19,7 @@ public class PlayerShoot : MonoBehaviour
     private bool _fireSingle;
     private float _lastFireTime;
 
-    void Update()
+    private void Update()
     {
         if (_fireContinuously || _fireSingle)
         {
@@ -39,10 +37,13 @@ public class PlayerShoot : MonoBehaviour
 
     private void FireBullet()
     {
-        GameObject bullet = Instantiate(_bulletPrefab, _gunOffset.position, transform.rotation);
-        Rigidbody2D rigidbody = bullet.GetComponent<Rigidbody2D>();
+        // Calculate the bullet's direction based on the player's look direction
+        Vector3 bulletDirection = transform.up;
 
-        rigidbody.velocity = _bulletSpeed * transform.up;
+        // Instantiate the bullet and set its initial velocity
+        GameObject bullet = Instantiate(_bulletPrefab, _gunOffset.position, Quaternion.identity);
+        Rigidbody2D rigidbody = bullet.GetComponent<Rigidbody2D>();
+        rigidbody.velocity = bulletDirection * _bulletSpeed;
     }
 
     private void OnFire(InputValue inputValue)

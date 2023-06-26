@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         SetPlayerVelocity();
-        RotateInDirectionOfInput();
+        RotateTowardsMouseCursor();
     }
 
     private void SetPlayerVelocity()
@@ -35,6 +35,27 @@ public class PlayerMovement : MonoBehaviour
 
         _rigidbody.velocity = _smoothedMovementInput * _speed;
     }
+    
+    private void RotateTowardsMouseCursor()
+    {
+        // Get the mouse cursor position using the new Input System API
+        Vector2 mousePosition = Mouse.current.position.ReadValue();
+
+        // Convert mouse position to world space
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        mouseWorldPosition.z = transform.position.z; // Maintain player's z position
+
+        // Calculate the direction vector
+        Vector3 direction = mouseWorldPosition - transform.position;
+
+        // Calculate the target rotation
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        // Rotate the player towards the target rotation
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+    }
+
 
     private void RotateInDirectionOfInput()
     {
