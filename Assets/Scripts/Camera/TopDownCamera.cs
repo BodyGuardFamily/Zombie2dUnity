@@ -20,6 +20,5 @@ public class TopDownCamera : MonoBehaviour
                 position.y + offset.y, 
                 position.z + offset.z);
         }
-        throw new NotImplementedException();
     }
 }
