@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+guid: 1c3ba2453c2713e4abd53dec11f9abc0
+=======
 guid: 1e66f87810697ed48b2f3c486f875999
+>>>>>>> vik
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
