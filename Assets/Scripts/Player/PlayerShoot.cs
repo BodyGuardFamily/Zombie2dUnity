@@ -12,8 +12,8 @@ public class PlayerShoot : MonoBehaviour
     private GameObject _bulletPrefab;
 
     [SerializeField] private float _bulletSpeed;
-    [SerializeField] private int _maxAmmo = 5;//
-    [SerializeField] private float reloadTime = 1f;//
+    [SerializeField] private int _maxAmmo = 5;
+    [SerializeField] private float reloadTime = 1f;
     
     [SerializeField]
     private Transform _gunOffset;
@@ -26,7 +26,7 @@ public class PlayerShoot : MonoBehaviour
     private bool _fireSingle;
     private float _lastFireTime;
     private int _currentAmmo;
-    private int _minAmmo = 0; //Come back to
+    private int _minAmmo = 0; 
 
     void Start()
     {
@@ -54,17 +54,18 @@ public class PlayerShoot : MonoBehaviour
                 _lastFireTime = Time.time;
                 _fireSingle = false;
 
-                _currentAmmo--; //delete?
+                _currentAmmo--; //
             }
         }
     }
-
+    
+    //Adds a pause once user reaches max ammo. Then player can continue shooting
     IEnumerator Reload()
     {
         isReloading = true;
         Debug.Log("Reloading...");
 
-        yield return new WaitForSeconds(reloadTime - .25f); //maybe remove .25f
+        yield return new WaitForSeconds(reloadTime - .25f); //
         
         _currentAmmo = _maxAmmo;
         isReloading = false;
