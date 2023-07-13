@@ -1,6 +1,3 @@
-//5:16
-
-
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,7 +9,7 @@ public class PlayerShoot : MonoBehaviour
     private GameObject _bulletPrefab;
 
     [SerializeField] private float _bulletSpeed;
-    [SerializeField] private int _maxAmmo = 5;
+    [SerializeField] private int _maxAmmo = 5; 
     [SerializeField] private float reloadTime = 1f;
     
     [SerializeField]
@@ -21,12 +18,14 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField]
     private float _timeBetweenShots;
     
+    /*
     private bool isReloading = false;
+    */
     private bool _fireContinuously;
     private bool _fireSingle;
     private float _lastFireTime;
     private int _currentAmmo;
-    private int _minAmmo = 0; 
+    private int _minAmmo = 0;
 
     void Start()
     {
@@ -35,10 +34,7 @@ public class PlayerShoot : MonoBehaviour
     
     private void Update()
     {
-        if (isReloading)
-            return;
-        
-        if (_currentAmmo <= 0)
+        if (_currentAmmo <= _minAmmo)
         {
             StartCoroutine(Reload());
             return;
@@ -53,8 +49,6 @@ public class PlayerShoot : MonoBehaviour
                 FireBullet();
                 _lastFireTime = Time.time;
                 _fireSingle = false;
-
-                _currentAmmo--; //
             }
         }
     }
@@ -62,13 +56,20 @@ public class PlayerShoot : MonoBehaviour
     //Adds a pause once user reaches max ammo. Then player can continue shooting
     IEnumerator Reload()
     {
+        /*
         isReloading = true;
-        Debug.Log("Reloading...");
+        */
+        if (Keyboard.current.rKey.wasPressedThisFrame)
+        {
+            Debug.Log("Reloading...");
 
-        yield return new WaitForSeconds(reloadTime - .25f); //
+            yield return new WaitForSeconds(reloadTime); //
         
-        _currentAmmo = _maxAmmo;
-        isReloading = false;
+            _currentAmmo = _maxAmmo;
+            /*
+            isReloading = false;
+        */
+        }
     }
 
     private void FireBullet()
@@ -109,5 +110,16 @@ public class PlayerShoot : MonoBehaviour
             _fireSingle = true;
         }
     }
+
+    /*private void CheckReload()
+    {
+        if (Keyboard.current.rKey.wasPressedThisFrame)
+        {
+            if (_currentAmmo == _minAmmo)
+            {
+                _needsReload = true;
+            }
+        }
+    }*/
     
 }

@@ -811,13 +811,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1006893991}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 211ad16a9c5d491469fea2a0cdadff29, type: 3}
+  m_Script: {fileID: 11500000, guid: 11eff9fc254b51948a46f1d5a3caeff5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingMoney: 0
-  startingWave: 1
   moneyScore: {fileID: 1006893994}
-  Wave: {fileID: 1157040770}
 --- !u!114 &1006893994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1119,9 +1116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 211ad16a9c5d491469fea2a0cdadff29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingMoney: 0
   startingWave: 1
-  moneyScore: {fileID: 1006893994}
   Wave: {fileID: 1157040770}
 --- !u!1001 &1281415630
 PrefabInstance:
