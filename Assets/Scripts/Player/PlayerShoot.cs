@@ -10,7 +10,6 @@ public class PlayerShoot : MonoBehaviour
 
     [SerializeField] private float _bulletSpeed;
     [SerializeField] private int _maxAmmo = 5; 
-    [SerializeField] private float reloadTime = 1f;
     
     [SerializeField]
     private Transform _gunOffset;
@@ -18,9 +17,6 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField]
     private float _timeBetweenShots;
     
-    /*
-    private bool isReloading = false;
-    */
     private bool _fireContinuously;
     private bool _fireSingle;
     private float _lastFireTime;
@@ -36,11 +32,21 @@ public class PlayerShoot : MonoBehaviour
     {
         if (_currentAmmo <= _minAmmo)
         {
-            StartCoroutine(Reload());
+            if (Keyboard.current.rKey.wasReleasedThisFrame)
+            {
+                Debug.Log("Reloading...");
+                _currentAmmo = _maxAmmo;
+                Debug.Log("Reload Complete");
+            }
+            else
+            {
+                Debug.Log("Player must reload");
+            }
+
             return;
         }
 
-        if (_fireContinuously || _fireSingle) 
+        if (_fireContinuously /*|| _fireSingle*/) 
         {
             float timeSinceLastFire = Time.time - _lastFireTime;
 
@@ -48,27 +54,10 @@ public class PlayerShoot : MonoBehaviour
             {
                 FireBullet();
                 _lastFireTime = Time.time;
+                /*
                 _fireSingle = false;
+            */
             }
-        }
-    }
-    
-    //Adds a pause once user reaches max ammo. Then player can continue shooting
-    IEnumerator Reload()
-    {
-        /*
-        isReloading = true;
-        */
-        if (Keyboard.current.rKey.wasPressedThisFrame)
-        {
-            Debug.Log("Reloading...");
-
-            yield return new WaitForSeconds(reloadTime); //
-        
-            _currentAmmo = _maxAmmo;
-            /*
-            isReloading = false;
-        */
         }
     }
 
@@ -95,31 +84,10 @@ public class PlayerShoot : MonoBehaviour
     {
         _fireContinuously = inputValue.isPressed;
 
-        if (inputValue.isPressed)
+        /*if (inputValue.isPressed)
         {
-            /*if (_currentAmmo > _minAmmo)
-            {
-                _fireContinuously = true;
-                _lastFireTime = Time.time;
-                FireBullet();
-                _currentAmmo--;
-            }*/
-            /*else
-            {
-                _fireContinuously = false;*/
             _fireSingle = true;
-        }
+        }*/
     }
 
-    /*private void CheckReload()
-    {
-        if (Keyboard.current.rKey.wasPressedThisFrame)
-        {
-            if (_currentAmmo == _minAmmo)
-            {
-                _needsReload = true;
-            }
-        }
-    }*/
-    
 }
