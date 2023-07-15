@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using TMPro;
 
 public class PlayerShoot : MonoBehaviour
 {
@@ -9,7 +10,6 @@ public class PlayerShoot : MonoBehaviour
     private GameObject _bulletPrefab;
 
     [SerializeField] private float _bulletSpeed;
-    [SerializeField] private int _maxAmmo = 5; 
     
     [SerializeField]
     private Transform _gunOffset;
@@ -18,18 +18,24 @@ public class PlayerShoot : MonoBehaviour
     private float _timeBetweenShots;
     
     private bool _fireContinuously;
-    private bool _fireSingle;
+    //private bool _fireSingle;
     private float _lastFireTime;
     private int _currentAmmo;
     private int _minAmmo = 0;
+    private int _maxAmmo = 10; 
+
+    [SerializeField] private TextMeshProUGUI _ammoText;
 
     void Start()
     {
         _currentAmmo = _maxAmmo;
+        UpdateAmmoText();
+        Debug.Log("Called Ammo start");
     }
     
     private void Update()
     {
+
         if (_currentAmmo <= _minAmmo)
         {
             if (Keyboard.current.rKey.wasReleasedThisFrame)
@@ -42,7 +48,6 @@ public class PlayerShoot : MonoBehaviour
             {
                 Debug.Log("Player must reload");
             }
-
             return;
         }
 
@@ -64,7 +69,8 @@ public class PlayerShoot : MonoBehaviour
     private void FireBullet()
     {
         _currentAmmo--;
-        
+        UpdateAmmoText();
+
         // Get the mouse position in world space
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         mousePosition.z = 0f;
@@ -82,12 +88,28 @@ public class PlayerShoot : MonoBehaviour
 
     private void OnFire(InputValue inputValue)
     {
-        _fireContinuously = inputValue.isPressed;
-
+        //_fireContinuously = inputValue.isPressed;
+        _fireContinuously = inputValue.Get<float>() > 0;
+        
         /*if (inputValue.isPressed)
         {
             _fireSingle = true;
         }*/
+    }
+
+    private void UpdateAmmoText()
+    {
+        Debug.Log("UpdateAmmoText() called");
+
+        if (_ammoText != null)
+        {
+            _ammoText.text = "AMMO " + _currentAmmo.ToString();
+            Debug.Log("Changed num: " + _currentAmmo.ToString());
+        }
+        else
+        {
+            Debug.Log("ammoText is null");
+        }
     }
 
 }

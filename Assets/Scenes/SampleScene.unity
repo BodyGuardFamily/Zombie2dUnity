@@ -329,6 +329,7 @@ GameObject:
   - component: {fileID: 428513997}
   - component: {fileID: 428513999}
   - component: {fileID: 428513998}
+  - component: {fileID: 428514000}
   m_Layer: 5
   m_Name: Ammo
   m_TagString: Untagged
@@ -375,7 +376,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: AMMO 00/00
+  m_text: AMMO
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0666b57490d878a4bad4f6ef984c4dad, type: 2}
   m_sharedMaterial: {fileID: 1809414198853042970, guid: 0666b57490d878a4bad4f6ef984c4dad, type: 2}
@@ -452,6 +453,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 428513996}
   m_CullTransparentMesh: 1
+--- !u!114 &428514000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 428513996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38c8473f5c71cb9469bf820b104bac17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletPrefab: {fileID: 0}
+  _bulletSpeed: 0
+  _gunOffset: {fileID: 0}
+  _timeBetweenShots: 0
+  _ammoText: {fileID: 428513998}
 --- !u!4 &436861255 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7323736629478551935, guid: 1dd8d1af18e9dd249b98df8ae80f4446, type: 3}
@@ -1479,6 +1497,10 @@ PrefabInstance:
       propertyPath: _maxAmmo
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5426628765492508637, guid: 02aee951bd7cf944ca2742f6fc79423e, type: 3}
+      propertyPath: _ammoText
+      value: 
+      objectReference: {fileID: 428513998}
     - target: {fileID: 5426628765492508637, guid: 02aee951bd7cf944ca2742f6fc79423e, type: 3}
       propertyPath: _currentAmmo
       value: 20
